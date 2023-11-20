@@ -1,0 +1,19 @@
+---
+
+- name: configure satellite smart proxies
+  redhat.satellite.smart_proxy:
+    username: "{{ satellite.admin_username }}"
+    password: "{{ satellite.admin_password }}"
+    validate_certs: false
+    server_url: "{{ satellite_url }}"
+    name: "{{ smart_proxy.name }}"
+    url: "{{ smart_proxy.url | default('https://'+smart_proxy.name+':9090') }}"
+    download_policy: "{{ smart_proxy.download_policy | default(omit) }}"
+    organizations: "{{ smart_proxy.organizations | default(omit) }}"
+    locations: "{{ smart_proxy.locations | default(omit) }}"
+    lifecycle_environments: "{{ smart_proxy.lifecycle_environments | default(omit) }}"
+    state: "{{ location.state | default(omit) }}"
+  loop_control:
+    loop_var: smart_proxy
+  loop: "{{ satellite.foreman.smart_proxies }}"
+  delegate_to: "{{ delegate_host }}"

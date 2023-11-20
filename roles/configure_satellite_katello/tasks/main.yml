@@ -1,18 +1,32 @@
 ---
 
 - import_tasks: manifest.yml
+  tags: ['configure_satellite_manifest']
 - import_tasks: lifecycle-environments.yml
+  tags: ['configure_satellite_lifecycle_environment']
 - import_tasks: redhat-repos.yml
+  tags: ['configure_satellite_content_views']
 - import_tasks: content-credentials.yml
+  tags: ['configure_satellite_content_views']
 - import_tasks: sync-plan.yml
+  tags: ['configure_satellite_content_views']
 - import_tasks: custom-products.yml
+  tags: ['configure_satellite_content_views']
 - import_tasks: associate-redhat-products-with-sync-plan.yml
+  tags: ['configure_satellite_content_views']
 - import_tasks: custom-repos.yml
+  tags: ['configure_satellite_content_views']
 - include_tasks: sync-repos.yml
   loop: "{{ range(0, organization.repo_sync_attempts, 1) | list }}"
   when:
     - organization.repo_sync_attempts | int != 0
+  tags: ['configure_satellite_content_views']
 - import_tasks: content-views.yml
+  tags: ['configure_satellite_content_views']
 - import_tasks: composite-content-views.yml
+  tags: ['configure_satellite_content_views']
 - import_tasks: promote-composite-content-views.yml
+  tags: ['configure_satellite_content_views']
 - import_tasks: activation-keys.yml
+  tags:
+    - 'configure_satellite_activation_keys'
