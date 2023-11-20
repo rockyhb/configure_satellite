@@ -17,6 +17,8 @@
     dhcp_proxy: "{{ subnet.dhcp_proxy | default(omit) }}"
     tftp_proxy: "{{ subnet.tftp_proxy | default(omit) }}"
     dns_proxy: "{{ subnet.dns_proxy | default(omit) }}"
+    remote_execution_proxies: "{{ subnet.remote_execution_proxies | default(omit) }}"
+    discovery_proxy: "{{ subnet.discovery_proxy | default(omit) }}"
     template_proxy: "{{ template_proxy | default(omit) }}"
     vlanid: "{{ subnet.vlanid | default(omit) }}"
     mtu: "{{ subnet.mtu | default(omit) }}"
