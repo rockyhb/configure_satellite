@@ -9,6 +9,7 @@
     name: "{{ hostgroup.name }}"
     state: "{{ hostgroup.state | default(omit) }}"
     architecture: "{{ hostgroup.architecture | default(omit) }}"
+    activation_keys: "{{ hostgroup.activation_keys | default(omit) }}"
     compute_profile: "{{ hostgroup.compute_profile | default(omit) }}"
     compute_resource: "{{ hostgroup.compute_resource | default(omit) }}"
     content_source: "{{ hostgroup.content_source | default(omit) }}"
