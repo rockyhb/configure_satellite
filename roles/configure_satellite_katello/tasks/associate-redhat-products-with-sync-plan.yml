@@ -1,10 +1,14 @@
 ---
 
 - name: get enabled Red Hat products
-  shell: hammer --csv repository list --organization "{{ organization.organization_name }}" | cut -d ',' -f 3 | sort --unique | grep -v '^Product$'
+  redhat.satellite.resource_info:
+    username: "{{ satellite.admin_username }}"
+    password: "{{ satellite.admin_password }}"
+    validate_certs: false
+    server_url: "{{ satellite_url }}"
+    organization: "{{ organization.organization_name }}"
+    resource: "repositories"
   register: redhat_products
-  changed_when: false
-  check_mode: false
 
 - name: set Red Hat products to sync plan
   redhat.satellite.product:
@@ -18,5 +22,6 @@
   loop_control:
     loop_var: product
   with_items:
-    - "{{ redhat_products.stdout_lines }}"
+    - "{{ redhat_products | community.general.json_query('resources[*].product.name') | list | unique }}"
   delegate_to: "{{ delegate_host }}"
+
