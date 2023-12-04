@@ -8,7 +8,7 @@
     server_url: "{{ satellite_url }}"
     organization: "{{ organization.organization_name }}"
     name: "{{ product.1.product }}"
-    gpg_key: "{{ product.1.content_credential_name }}"
+    #gpg_key: "{{ product.1.content_credential_name }}"
     sync_plan: daily
   when:
     - product.1.product is defined
