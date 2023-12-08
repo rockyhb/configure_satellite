@@ -1,0 +1,18 @@
+---
+
+- name: configure satellite realms
+  redhat.satellite.realm:
+    username: "{{ satellite.admin_username }}"
+    password: "{{ satellite.admin_password }}"
+    validate_certs: false
+    server_url: "{{ satellite_url }}"
+    locations: "{{ realm.locations | d([]) }}"
+    organizations: "{{ realm.organizations | d([]) }}"
+    name: "{{ realm.name }}"
+    realm_proxy: "{{ realm.realm_proxy }}"
+    realm_type: "{{ realm.realm_type }}"
+    state: "{{ realm.state | default(omit) }}"
+  loop_control:
+    loop_var: realm
+  loop: "{{ satellite.foreman.realms | d([]) }}"
+  delegate_to: "{{ delegate_host }}"

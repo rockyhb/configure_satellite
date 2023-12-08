@@ -19,6 +19,8 @@
       tags: ['configure_satellite_subnets']
     - import_tasks: compute-resources.yml
       tags: ['configure_satellite_compute_resources']
+    - import_tasks: realms.yml
+      tags: ['configure_satellite_realms']
   when:
     - not (requires_katello_content) or
       override_run_all
